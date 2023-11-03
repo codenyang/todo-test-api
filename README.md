@@ -2,7 +2,7 @@
 ### JUST TEST
 
 ```agsl
-go run main.go
+go run main.go -dev=false
 ```
 
 ---

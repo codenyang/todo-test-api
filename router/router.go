@@ -1,6 +1,7 @@
 package router
 
 import (
+	"flag"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	todo2 "go-todo/todo"
@@ -8,7 +9,22 @@ import (
 )
 
 func SetGin() *gin.Engine {
+	isDev := flag.Bool("dev", false, "dev mode")
+
+	flag.Parse()
+	fmt.Println(*isDev)
+
+	if !*isDev {
+		gin.SetMode(gin.ReleaseMode)
+	}
+
 	r := gin.Default()
+
+	r.ForwardedByClientIP = true
+	err := r.SetTrustedProxies([]string{"127.0.0.1"})
+	if err != nil {
+		panic(err)
+	}
 
 	r.Use(CORSMiddleware())
 	setRoute(r)

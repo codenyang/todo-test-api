@@ -7,5 +7,8 @@ import (
 func main() {
 	r := router.SetGin()
 
-	r.Run()
+	err := r.Run()
+	if err != nil {
+		panic(err)
+	}
 }
